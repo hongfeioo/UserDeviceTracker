@@ -33,7 +33,7 @@
 1.  推荐只采集核心交换和接入层设备，汇聚层设备不要放，因为太多的trunk口没什么用.
 2.  macarpbak目录为自动生成，程序会在生成allarpmac.html 之后向本文件夹中拷贝一份留作备用，以方便以后查找,需要注意的是磁盘空间。
 3.  macarp目录为自动生成， 存放allmac 和allarp的备份数据
-4.  没有三层信息的设备在allarpmac.html中是找不到的。[已得到改善](https://github.com/hongfeioo/UserDeviceTracker#vservermap%E9%80%89%E7%94%A8)
+4.  没有三层信息的设备在allarpmac.html中是找不到的。(下文已得到改善)
 5.  配置文件中的ip顺序是有讲究的，核心交换，汇聚交换，接入层交换, 这样的排列可以让生成的结果更易读。
 
 
@@ -60,10 +60,10 @@ Mgmt:10.64.0.16 58bf.ea74.72b0 DYNAMIC 1 Gi1/0/15 GW:-    // Mgmt:设备ip  mac 
 ```
 
 ## 总结
-allarpmac.html 是对采集的数据进行了简单的展示，很丑凑活能用. 在展现方面在下边还有两个小项目，分别以不同的视角展示了采集回来的数据。
+allarpmac.html 是对采集的数据进行了简单的展示(IP -> MAC -> SwitchPort)，很丑但凑活能用. 在展现方面在下边还有两个小项目的优化，分别以不同的方式展示了采集回来的数据。
  
-1.  php+python  [(IP -> MAC -> SwitchPort)](https://github.com/hongfeioo/UserDeviceTracker#udt%E7%AE%80%E6%98%93ui%E9%80%89%E7%94%A8)
-2.  golang      [(SwirthPort -> MAC -> IP)](https://github.com/hongfeioo/UserDeviceTracker#vservermap%E9%80%89%E7%94%A8)
+1.  php+python  (IP -> MAC -> SwitchPort)
+2.  golang      (SwirthPort -> MAC -> IP)
 
 
 ## TODO
@@ -146,7 +146,7 @@ go build  VserverMap.go
 
 
 ## 截图
-<img src="vm.png" alt="vservermap" width="795" height="466">
+<img src="vm.png" alt="vservermap" width="500" height="300">
 
 
 
@@ -217,13 +217,11 @@ https://regauth.standards.ieee.org/standards-ra-web/pub/view.html#registries
 
 
 ### 缺陷
------------
-1.  如果物理服务器有两块网卡，宿主走一个网卡，虚拟机走另外一个网卡，这种情况用本程序就无法找到虚拟机所在的宿主了。
+如果物理服务器有两块网卡，宿主走一个网卡，虚拟机走另外一个网卡，这种情况用本程序就无法找到虚拟机所在的宿主了。
 
 
 
-* * *
-
+------
 
 
 
