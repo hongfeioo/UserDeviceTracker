@@ -50,14 +50,8 @@ Mgmt:10.64.0.16 58bf.ea74.72b0 DYNAMIC 1 Gi1/0/15 GW:-    // Mgmt:设备ip  mac 
 
 
 ### arp+mac组合成HTML展示(allarpmac.html)
-```
-例如：
-11311 ARP:f8bc.1278.ba1e ip:192.168.8.142 L3dev:10.64.0.250</p>               /这其实是一条arp信息，L3dev指这条arp信息所在的设备(即allarp表中的MGMT)
-11311 L2dev:10.64.0.250 type:Dynamic vlan:2 interface:FastEthernet0/0/0</p>   // 这些都是dis mac信息， 这里有三条说明这个mac出现在三个物理设备上
-11311 L2dev:192.168.8.253 type:Learned vlan:1 interface:Ethernet1/0/23</p>
-11311 L2dev:192.168.8.250 type:Learned vlan:1 interface:Ethernet1/0/4</p>
+你需要有一个web的展示环境，例如apache nginx 就可以看到内容.
 
-```
 
 ## 总结
 allarpmac.html 是对采集的数据进行了简单的展示(IP -> MAC -> SwitchPort)，很丑但凑活能用. 在展现方面在下边还有两个小项目的优化，分别以不同的方式展示了采集回来的数据。
@@ -80,6 +74,19 @@ allarpmac.html 是对采集的数据进行了简单的展示(IP -> MAC -> Switch
 
 ## 截图
 <img src="udt.png" alt="udt" >
+
+
+
+```
+解释：
+ ARP:703d.15e3.6dd7 ip:10.10.100.20 L3dev:10.10.88.1</p>                 //这其实是一条arp信息，L3dev指这条arp信息所在的设备
+ L2dev:10.10.88.1 type:Dynamic vlan:100 interface:Bridge.Aggregation19</p>   //红色的mac地址，出现在10.10.88.1这台设备上，接口是一个及联口。
+ L2dev:10.10.82.3 type:Learned vlan:100 interface:GigabitEthernet1/0/41</p>   //还出现在了10.10.82.3这个接入层交换机上，这是一个真实的物理接口。
+
+从以上信息可以解读到，10.10.100.20(703d.15e3.6dd7)  这个设备连接在 10.10.82.3这台接入层交换机的G1/0/41口，vlan 100 。
+
+```
+
 
 
 ## 按钮的作用
