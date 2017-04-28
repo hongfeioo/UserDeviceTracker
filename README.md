@@ -68,7 +68,7 @@ Mgmt:10.64.0.16 58bf.ea74.72b0 DYNAMIC 1 Gi1/0/15 GW:-    // Mgmt:设备ip  mac 
 为了让采集得到的数据更加直观的展示，index.php 和 udt.py  两个文件为UDT提供了一个简易的UI， 可以在网页中搜索ip或者mac _( 一位网络工程师已逐渐走向全栈，请不要阻拦)_
 
 
-<img src="udt.png" alt="udt" width="700" height="300">
+<img src="udt.png" alt="udt" width="780" height="300">
 
 
 ## 按钮的作用
@@ -92,22 +92,22 @@ Mgmt:10.64.0.16 58bf.ea74.72b0 DYNAMIC 1 Gi1/0/15 GW:-    // Mgmt:设备ip  mac 
 2.  通过这种方式可以直接测试程序是否有问题。排除php的干扰。
 ```
 example:
-python udt.py 192.168.102.134 history  在所有arpmac库中搜索
-python udt.py 192.168.102.134 search   在今天的arpmac库中搜索
-python udt.py 00ef.ccrg.a3ff history
-python udt.py 00ef.ccrg.a3ff search 
+python udt.py 192.168.102.134 search   在最近的arpmac库中搜索ip
+python udt.py 192.168.102.134 history  在所有arpmac库中搜索ip
+python udt.py 00ef.ccrg.a3ff search    在最近的arpmac库中搜索mac
+python udt.py 00ef.ccrg.a3ff history   在所有arpmac库中搜索mac
 ```
 
 
 
 ## TODO
 1.  模拟登陆的方式获取arp和mac信息,会在翻页处造成信息丢失，本项目的第二个版本会采用go重构所有代码，snmp获取信息.
-2.  本程序已经完成的go语言的重构，采集信息的方式由模拟登陆变成了snmp,存储方式也由文本变成了ETCD，并对外提供RESTful接口，后期可能公布源码。
+2.  2017年3月, 本程序已经完成的go语言的重构，采集信息的方式由模拟登陆变成了snmp,存储方式也由文本变成了ETCD，并对外提供RESTful接口，后期可能公布源码。
 
 ## 作者介绍
 yihongfei  QQ:413999317   MAIL:yihf@liepin.com
 
-#CCIE 38649#
+CCIE 38649
 
 
 ## 寄语
