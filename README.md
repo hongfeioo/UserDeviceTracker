@@ -147,6 +147,7 @@ go build  VserverMap.go
 
 ## 截图
 <img src="vm.png" alt="vservermap" width="300" height="200">
+<img src="vm.png" alt="vservermap" >
 
 
 
