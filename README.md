@@ -69,7 +69,7 @@ Mgmt:10.64.0.16 58bf.ea74.72b0 DYNAMIC 1 Gi1/0/15 GW:-    // Mgmt:设备ip  mac 
 为了让采集得到的数据更加直观的展示，index.php 和 udt.py  两个文件为UDT提供了一个简易的UI， 可以在网页中搜索ip或者mac _( 一位网络工程师已逐渐走向全栈，请不要阻拦)_
 
 
-<img src="udt.png" alt="udt" width="760" height="360">
+<img src="udt.png" alt="udt" width="700" height="300">
 
 
 ## 按钮的作用
