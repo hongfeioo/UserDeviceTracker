@@ -18,18 +18,23 @@
 配置文件的格式
 -------------
 ```
-10.55.0.1        cisco-nxos      core1.idc5      -       -
-10.55.1.1        cisco-nxos      n5k1.idc5       -       Po51
-10.55.1.2        cisco-nxos      n5k2.idc5       -       Po51
-```
+
+#idc1
+10.10.8.1       h3c-sw          slp_CoreSW      -       -
+10.10.8.11      h3c-sw          server_acc_150  -       Bridge-Aggregation2
+10.10.8.12      h3c-sw          server_acc_151  -       Bridge-Aggregation2
+#idc2
+10.55.0.1       cisco-nxos      core1.idc5      -       -
+10.55.1.1       cisco-nxos      n5k1.idc5       -       Po51
+10.55.1.2       cisco-nxos      n5k2.idc5       -       Po51
 
 1.  第1个字段设备ip，
 2.  第2个字段设备类型（不同的设备类型对应不同的模拟登陆方式和arp／mac获取方式），
 3.  第3个字段为备注（可描述设备名字,随意书写），
 4.  第4个字段如果是-则取双表，如果不是-则只取mac地址表（目前都设置-，以后可以开发成更有用的字段）。
-5.  第5个字段是填写交换机的上联口，注意要和show macaddress 中的接口一模一样。作用是在macall地址库中排除这个端口下的mac地址。 这样的上联口（多数为trunk）会带来很多没用的mac地址表项,增加结果的阅读难度，因为我们只关心直连主机的端口。网关设备此项可以写-，代表不省略任何端口信息。接入层交换机一般写一个端口（比如去核心路由的口）。 第五字段纯属为了优化过程设计的。其实很简单，mac地址入库有一个条件（接口名字！= 第四个字段）.
+5.  第5个字段.   mac地址表入库的时候，会排除这些接口。 如果是核心交换则用- ，如果是接入层交换机则写上这个交换机的上联口。 
 
-
+```
 
 备注
 -----------
@@ -62,6 +67,8 @@ arp+mac组合成HTML展示(allarpmac.html)
 11311 L2dev:10.64.0.250 type:Dynamic vlan:2 interface:FastEthernet0/0/0</p>   // 这些都是dis mac信息， 这里有三条说明这个mac出现在三个物理设备上
 11311 L2dev:192.168.8.253 type:Learned vlan:1 interface:Ethernet1/0/23</p>
 11311 L2dev:192.168.8.250 type:Learned vlan:1 interface:Ethernet1/0/4</p>
+
+这些html代码生成的页面效果我就不展示了，虽然很丑凑活能用,美观的事儿得找UI搞定。
 
 ```
 
