@@ -78,6 +78,7 @@ allarpmac.html 是对采集的数据进行了简单的展示(IP -> MAC -> Switch
 为了让采集得到的数据更加直观的展示，index.php 和 udt.py  两个文件为UDT提供了一个简易的UI， 可以在网页中搜索ip或者mac _( 一位网络工程师已逐渐走向全栈，请不要阻拦)_
 
 
+## 截图
 <img src="udt.png" alt="udt" >
 
 
