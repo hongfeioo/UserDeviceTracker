@@ -30,10 +30,10 @@
 ```
 
 ## 备注
-1.  只放网关设备和接入层设备，汇聚层设备不要放，因为太多的trunk口没什么用.
-2.  本目录下的macarpbak文件夹是自动生成的，程序会在生成allarpmac.html 之后向本文件夹中拷贝一份留作备用，以方便以后查找,需要注意的是磁盘空间。
-3.  macarp 目录存放allmac 和allarp的备份数据
-4.  如果有些设备没有ip，那么在allarpmac.html中是找不到的。
+1.  推荐只采集核心交换和接入层设备，汇聚层设备不要放，因为太多的trunk口没什么用.
+2.  macarpbak目录为自动生成，程序会在生成allarpmac.html 之后向本文件夹中拷贝一份留作备用，以方便以后查找,需要注意的是磁盘空间。
+3.  macarp目录为自动生成， 存放allmac 和allarp的备份数据
+4.  没有三层信息的设备在allarpmac.html中是找不到的。[已得到改善](https://github.com/hongfeioo/UserDeviceTracker#vservermap%E9%80%89%E7%94%A8)
 5.  配置文件中的ip顺序是有讲究的，核心交换，汇聚交换，接入层交换, 这样的排列可以让生成的结果更易读。
 
 
@@ -62,8 +62,8 @@ Mgmt:10.64.0.16 58bf.ea74.72b0 DYNAMIC 1 Gi1/0/15 GW:-    // Mgmt:设备ip  mac 
 ## 总结
 allarpmac.html 是对采集的数据进行了简单的展示，很丑凑活能用. 在展现方面在下边还有两个小项目，分别以不同的视角展示了采集回来的数据。
  
-1.  php+python  (IP -> MAC -> SwitchPort)
-2.  golang          (SwirthPort -> MAC -> IP)
+1.  php+python  [(IP -> MAC -> SwitchPort)](https://github.com/hongfeioo/UserDeviceTracker#udt%E7%AE%80%E6%98%93ui%E9%80%89%E7%94%A8)
+2.  golang      [(SwirthPort -> MAC -> IP)](https://github.com/hongfeioo/UserDeviceTracker#vservermap%E9%80%89%E7%94%A8)
 
 
 ## TODO
@@ -73,14 +73,12 @@ allarpmac.html 是对采集的数据进行了简单的展示，很丑凑活能�
 
 
 * * *
-* * *
-* * *
 
 # UDT简易UI(选用)
 为了让采集得到的数据更加直观的展示，index.php 和 udt.py  两个文件为UDT提供了一个简易的UI， 可以在网页中搜索ip或者mac _( 一位网络工程师已逐渐走向全栈，请不要阻拦)_
 
 
-<img src="udt.png" alt="udt" width="780" height="300">
+<img src="udt.png" alt="udt" width="580" height="200">
 
 
 ## 按钮的作用
@@ -111,18 +109,17 @@ python udt.py 00ef.ccrg.a3ff history   在所有arpmac库中搜索mac
 ```
 
 * * *
-# VserverMap(选用)
 
-介绍
----------
+# UDT的简易UI-VserverMap(选用)
+
+## 介绍
 1.  可以看作是UDT的go版的简易UI
 2.  和php版本的UI相比，这个版本展示的信息更全，显示的更加形象。
 3.  引入了mac地址翻译功能，可以看出网卡的厂家
 
 
 
-特性介绍
------------
+## 特性介绍
 1. 以arp库文件和mac库文件作为源，分析出Interface -> mac -> IP 的对应关系， 这个和allarpmac.html 的生成过程刚好相反，好处在于没有IP信息的mac也会被展示出来。
 2. 一个mac地址对应多个IP的情况被很好的展现。
 3. MAC地址解析成厂家的依据是这个文件：ieee_mac.txt ，可去官方网站更新
@@ -130,8 +127,7 @@ python udt.py 00ef.ccrg.a3ff history   在所有arpmac库中搜索mac
 
 
 
-启动方法
------------
+## 启动方法
 ```
 go build  VserverMap.go
 ./VserverMap
@@ -139,8 +135,7 @@ go build  VserverMap.go
 注意：golang的安装方法此处不做介绍
 ```
 
-使用方法
--------
+## 使用方法
 ```
 1. http://localhost:8080/mac   Interface ->mac->Ip    
 2. http://localhost:8080/      Interface -> IP
@@ -150,14 +145,12 @@ go build  VserverMap.go
 
 
 
-截图
------
+## 截图
 <img src="vm.png" alt="vservermap" width="795" height="466">
 
 
 
-举例子
---------
+##  举例子
 ```
 
 Mgmt:192.168.24.71-GigabitEthernet2/0/10
@@ -194,8 +187,8 @@ Mgmt:192.168.254.6-GigabitEthernet2/0/19
 ```
 
 
-数据结构设计
-----------------
+## 数据结构设计
+```
 1. 用map的key存放信息有天然去重的功效,并且可以检索，这个是数组无法比拟的（至少现在数组没有去重的函数）
 2. 一个接口下会有多个mac，并且mac可能重复: 这种情况， 外层key存放Interface，内层key存放mac很合理。
 3. 一个mac地址会对应多个IP地址,   这种情况，外层key存放mac ，内层key存放Ip很合理。
@@ -210,28 +203,26 @@ type MapMap struct {
 7.  FillMacInterface  外层键值Interface  内层键值mac  内容为空, 满足一个接口下多个mac（自动去重），并存入多个不同端口
 8.  FillMacIp         外层键值Mac        内层键值Ip   内容为空，满足一个mac对应多个ip（自动去重），并存入多个不同mac
 9.  FillIeeeMac       外层键值Mac前缀    内层键值厂家名字  内容为空，  其实这里没有去重的必要，但是用key检索value还是比较快的。
+```
 
-重点函数介绍
-------------------
+## 函数介绍
 1.  FillMacInterface从allmac.txt中过滤出端口和mac的对应关系,存入双重的map关系,记录了  Interface -> mac  的一对多关系
 2.  FillMacIp从allarp.txt 中过滤出mac和ip的对应关系, 存入双重的map结构. 记录了mac -> IP  的一对多关系。
 3.  FillIeeeMac，从ieeemac.txt数据库中，过滤出mac地址前缀和厂家的关系存入双map结构，记录了 mac前缀 ->  厂家的关系。
 
 
 
-IEEE 指定的MAC地址规范下载
-------------------------
+### IEEE 指定的MAC地址规范下载
 https://regauth.standards.ieee.org/standards-ra-web/pub/view.html#registries
 
 
-缺陷
+### 缺陷
 -----------
 1.  如果物理服务器有两块网卡，宿主走一个网卡，虚拟机走另外一个网卡，这种情况用本程序就无法找到虚拟机所在的宿主了。
 
 
 
 * * *
-* * * 
 
 
 
