@@ -63,16 +63,13 @@ Mgmt:10.64.0.16 58bf.ea74.72b0 DYNAMIC 1 Gi1/0/15 GW:-    // Mgmt:设备ip  mac 
 
 ```
 
-## TODO
-1.  模拟登陆的方式获取arp和mac信息,会在翻页处造成信息丢失，本项目的第二个版本会采用go重构所有代码，snmp获取信息，并且所有信息放入ETCD存储。
-
-===============
+* * *
 
 # UDT简易UI
-为了让采集得到的数据更加直观的展示，index.php 和 udt.py  两个文件为UDT提供了一个简易的UI， 可以在网页中搜索ip或者mac ( 一位网络工程师已逐渐走向全栈，请不要阻拦)
+为了让采集得到的数据更加直观的展示，index.php 和 udt.py  两个文件为UDT提供了一个简易的UI， 可以在网页中搜索ip或者mac _( 一位网络工程师已逐渐走向全栈，请不要阻拦)_
 
 
-交互界面：<img src="udt.png" alt="udt" width="200" height="100">
+交互界面：<img src="udt.png" alt="udt" width="800" height="500">
 
 
 ## 按钮的作用
@@ -92,7 +89,6 @@ Mgmt:10.64.0.16 58bf.ea74.72b0 DYNAMIC 1 Gi1/0/15 GW:-    // Mgmt:设备ip  mac 
 
 
 ## 排错
----------
 1.  网页的按钮update不起作用，可能是文件或者目录权限导致。
 2.  通过这种方式可以直接测试程序是否有问题。排除php的干扰。
 ```
@@ -105,6 +101,8 @@ python udt.py 00ef.ccrg.a3ff search
 
 
 
+## TODO
+1.  模拟登陆的方式获取arp和mac信息,会在翻页处造成信息丢失，本项目的第二个版本会采用go重构所有代码，snmp获取信息，并且所有信息放入ETCD存储。
 
 ## 作者介绍
 yihongfei  QQ:413999317   MAIL:yihf@liepin.com
