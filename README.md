@@ -74,7 +74,7 @@ allarpmac.html 是对采集的数据进行了简单的展示(IP -> MAC -> Switch
 
 * * *
 
-# UDT简易UI(选用)
+# 1-UDT简易UI(选用)
 为了让采集得到的数据更加直观的展示，index.php 和 udt.py  两个文件为UDT提供了一个简易的UI， 可以在网页中搜索ip或者mac _( 一位网络工程师已逐渐走向全栈，请不要阻拦)_
 
 
@@ -110,7 +110,7 @@ python udt.py 00ef.ccrg.a3ff history   在所有arpmac库中搜索mac
 
 * * *
 
-# UDT的简易UI-VserverMap(选用)
+# 2-UDT的简易UI(选用)
 
 ## 介绍
 1.  可以看作是UDT的go版的简易UI
@@ -146,7 +146,7 @@ go build  VserverMap.go
 
 
 ## 截图
-<img src="vm.png" alt="vservermap" width="500" height="300">
+<img src="vm.png" alt="vservermap" width="300" height="200">
 
 
 
