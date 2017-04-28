@@ -37,25 +37,35 @@
 5.  配置文件中的ip顺序是有讲究的，核心交换，汇聚交换，接入层交换, 这样的排列可以让生成的结果更易读。
 
 
-### arp信息格式(allarp.txt)
+
+## 采集的信息以文本存储
+
+### arp信息库
 ```bash
+库文件： allarp.txt
+格式：
 Mgmt:10.64.0.16 fcfb.fb9e.1041 10.64.3.75 Vlan2   // Mgmt:设备ip  mac  ip  vlan(未用到)
 ```
 
 
-### MAC信息格式 (allmac.txt)
+### MAC信息库
 ```
+文件名：allmac.txt
+格式：
 Mgmt:10.64.0.16 58bf.ea74.72b0 DYNAMIC 1 Gi1/0/15 GW:-    // Mgmt:设备ip  mac  dynamic  vlan   interface  Gateway(现在统一为-， 以后可以开发成其他含义的字段)
 ```
 
 
-### arp+mac组合成HTML展示(allarpmac.html)
-你需要有一个web的展示环境，例如apache nginx 就可以看到内容.
+### HTML展示
+```
+文件名：allarpmac.html
+格式：见下文
+环境需求：apache ,nginx 等 
+```
 
 
 ## 总结
 allarpmac.html 是对采集的数据进行了简单的展示(IP -> MAC -> SwitchPort)，很丑但凑活能用. 在展现方面在下边还有两个小项目的优化，分别以不同的方式展示了采集回来的数据。
- 
 1.  php+python  (IP -> MAC -> SwitchPort)
 2.  golang      (SwirthPort -> MAC -> IP)
 
