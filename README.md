@@ -3,12 +3,11 @@
 
 
 ## 介绍
-1. 本程序会采集cisco,huawei,h3c交换机上的arp表和mac地址表，经过后台的匹配生成: ip->mac->interface 三元素的对应关系， 这对于查找服务器所在的交换机端口非常有帮助
-2. 随着虚拟化技术的发展，本程序对于定位虚拟机所在的物理机也有帮助。
+1. 本程序会采集cisco,huawei,h3c交换机上的arp表和mac地址表，经过运算可以得出两种对应关系: ip -> mac -> SwitchPort ,  SwitchPort -> mac -> ip 。
+2. 通过这两种对应关系，可以轻松的通过ip找到设备所在的交换机端口，或者通过交换机端口找到联机的网络设备IP。  
+3. 随着虚拟化技术的发展，本程序对于定位虚拟机所在的物理机也有帮助。
 
 
-## 原理
-程序会通过模拟登陆的方式获取网络设备的arp表和MAC表,取到的ARP信息记录在allarp.txt 中，MAC信息记录在allmac.txt 中, 然后会在ARP文件中逐一取出条目，并针对这个ip的mac 在mac地址库中进行查，把结果显示成html文件，循环往复。
 
 
 ## 配置文件的格式
@@ -36,6 +35,9 @@
 4.  配置文件中的ip顺序是有讲究的，核心交换，汇聚交换，接入层交换, 这样的排列可以让生成的结果更易读。
 
 
+## 数据文件
+程序会通过模拟登陆的方式获取网络设备的arp表和MAC表,取到的ARP信息记录在allarp.txt 中，MAC信息记录在allmac.txt 
+
 
 ## 采集的信息以文本存储
 
@@ -54,11 +56,10 @@ Mgmt:10.64.0.16 fcfb.fb9e.1041 10.64.3.75 Vlan2   // Mgmt:设备ip  mac  ip  vla
 Mgmt:10.64.0.16 58bf.ea74.72b0 DYNAMIC 1 Gi1/0/15 GW:-    // Mgmt:设备ip  mac  dynamic  vlan   interface  Gateway(现在统一为-， 以后可以开发成其他含义的字段)
 ```
 
-
 ### HTML展示
 ```
 文件名：allarpmac.html
-格式：见下文
+格式：见1-UDT简易UI
 环境需求：apache ,nginx 等 
 ```
 
@@ -88,9 +89,9 @@ allarpmac.html 是对采集的数据进行了简单的展示(IP -> MAC -> Switch
 
 ```
 解释：
- ARP:703d.15e3.6dd7 ip:10.10.100.20 L3dev:10.10.88.1</p>                 //这其实是一条arp信息，L3dev指这条arp信息所在的设备
- L2dev:10.10.88.1 type:Dynamic vlan:100 interface:Bridge.Aggregation19</p>   //红色的mac地址，出现在10.10.88.1这台设备上，接口是一个及联口。
- L2dev:10.10.82.3 type:Learned vlan:100 interface:GigabitEthernet1/0/41</p>   //还出现在了10.10.82.3这个接入层交换机上，这是一个真实的物理接口。
+ ARP:703d.15e3.6dd7 ip:10.10.100.20 L3dev:10.10.8.1</p>                      //这其实是一条三层信息，L3dev指这条arp信息所在的设备
+ L2dev:10.10.8.1 type:Dynamic vlan:100 interface:Bridge.Aggregation19</p>    //这是一条二层信息，红色的mac地址，出现在10.10.88.1这台设备上，接口是Bridge.Aggregation19（集联口）。
+ L2dev:10.10.82.3 type:Learned vlan:100 interface:GigabitEthernet1/0/41</p>   //这是一条二层信息，红色的mac地址，还出现在了10.10.82.3这个交换机的G1/0/41口。
 
 从以上信息可以解读到，10.10.100.20(703d.15e3.6dd7)  这个设备连接在 10.10.82.3这台接入层交换机的G1/0/41口，vlan 100 。
 
