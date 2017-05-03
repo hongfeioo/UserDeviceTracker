@@ -71,7 +71,7 @@ allarpmac.html 是对采集的数据进行了简单的展示(IP -> MAC -> Switch
 
 
 ## TODO
-1.  模拟登陆的方式获取arp和mac信息, 使用 screen-length disable 可取消翻页，这个功能在第一版设计的时候竟没有考虑到，如有兴趣者可进行分支修改。
+1.  模拟登陆的方式获取arp和mac信息, 使用 screen-length disable 可取消翻页(感谢JD大泳老师github上的作品)，这个功能在第一版设计的时候竟没有考虑到，如有兴趣者可进行分支修改。
 2.  2017年3月, 本程序已经完成的go语言的重构，采集信息的方式由模拟登陆变成了snmp,存储方式也由文本变成了ETCD，并对外提供RESTful接口，后期可能公布源码。
 
 
