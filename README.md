@@ -245,7 +245,7 @@ https://regauth.standards.ieee.org/standards-ra-web/pub/view.html#registries
 
 
 ## 作者介绍
-yihongfei  QQ:413999317   MAIL:yihf@liepin.com
+yihongfei  QQ:413999317   MAIL:yihongfei@xiaomi.com
 
 CCIE 38649
 
